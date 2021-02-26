@@ -27,7 +27,7 @@ class DataModel {
 
     update(obj, id) {
        for (let x = 0; x < this.data.tength; x++) {
-            if(this.data[x].id == id) {
+            if(this.data[x].id === id) {
                 this.data[x] = obj;
                 return true;
                 break;
@@ -39,7 +39,7 @@ class DataModel {
 
     delete(id) {  
         for(let i = 0; i < this.data.length; i++) {
-            if(this.data[i].id == id) {
+            if(this.data[i].id === id) {
                 this.data.splice(i, 1);
                 return true;
             } else {
