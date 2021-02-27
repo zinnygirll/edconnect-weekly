@@ -8,12 +8,11 @@ class DataModel {
     }
 
     getById(id) {
-        for (let b in this.data) {
-            if(this.data[b].id === id) {
-                return this.data[b];
-            } 
-            return null;
+        let userId = this.data.find(item => item.id === id)
+        if(!userId) {
+            return null
         }
+        return userId;
     }
 
     save(obj) {
