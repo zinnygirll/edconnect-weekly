@@ -20,14 +20,12 @@ class User {
 class Users extends DataModel {
     //email and password must be available in the same object
     authenticate(email, password) {
-        for (let j = 0; j < this.data.length; j++) {
-            if((this.data[j].email === email) && (this.data[j].password === password)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-           
+        let trueEmail = this.data.filter(e=> e.email === email)
+        let truePassword = this.data.filter(e=> e.password === password)
+        if (trueEmail[0] === truePassword[0]) {
+            return true
+        } 
+        return false;
     }
 
     getByEmail(email) {
