@@ -12,8 +12,8 @@ class User {
         this.graduationYear = graduationYear;
     }
 
-    getFullName() {
-        return (this.firstname + " " + this.lastname);
+    getFullName () {
+        return `${this.firstname}` + " " + `${this.lastname}`; 
     }
 }
 
