@@ -14,14 +14,20 @@ class Project {
 class Projects extends DataModel {
     validate(obj) {
             //none of the properties in obj is empty
-            if ((Array.isArray(obj['tags'])) && (Array.isArray(obj['authors']))) {
-                for (let key in obj) {
-                    if ((obj.key !== undefined) && (obj.key !== null)) {
-                        return true;
-                    }
+            let resEmpty = true;
+            for (let stuff in obj) {
+                if ((obj[stuff] === undefined) || (obj[stuff] === null || !obj[stuff])) {
+                    resEmpty = false;
                 }
-            }    
+            }
+
+            let tagsArray = Array.isArray(obj['tags'])
+            let authorsArray = Array.isArray(obj['authors'])
+            if (resEmpty && tagsArray && authorsArray) {
+                return true
+            }
             return false;
+        
     }
 }
 

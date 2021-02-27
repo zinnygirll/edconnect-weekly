@@ -11,7 +11,6 @@ class DataModel {
         for (let b in this.data) {
             if(this.data[b].id === id) {
                 return this.data[b];
-                break;
             } 
             return null;
         }
@@ -26,26 +25,23 @@ class DataModel {
     }
 
     update(obj, id) {
-       for (let x = 0; x < this.data.tength; x++) {
-            if(this.data[x].id === id) {
-                this.data[x] = obj;
-                return true;
-                break;
-            } else {
-                return false;
-            }
-       }  
+        let user = this.data.find(item => item.id === id)
+        if(!user) {
+            return false
+        }
+        for(let key in obj) {
+            user[key] = obj[key]
+        }
+        return true 
     }
 
     delete(id) {  
-        for(let i = 0; i < this.data.length; i++) {
-            if(this.data[i].id === id) {
-                this.data.splice(i, 1);
-                return true;
-            } else {
-                return false;
-            }
+        let i = this.data.findIndex(item => item.id === id)
+        if(i > -1) {
+            this.data.splice(i, 1)
+            return true
         }
+        return false
     }
 
     // this method will be overriden in the sub classes

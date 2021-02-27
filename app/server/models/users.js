@@ -39,20 +39,23 @@ class Users extends DataModel {
     }
 
     validate(obj) {
-        for (let a in this.data) {
-            //none of the properties in obj is empty
-            for (let key in obj) {
-                if ((obj.key !== undefined) && (obj.key !== null)) {
-                    if (this.data[a].email !== obj.email) {
-                        if (this.data[a].matricNumber !== obj.matricNumber) {
-                            if (obj.password.length >= 7) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }                        
+        //none of the properties in obj is empty
+        let isEmpty = false
+        for (let key in obj) {
+            if ((obj[key] === undefined) || (obj[key] === null)) {
+                isEmpty = true
+            }
+        } 
+        let userByEmail = this.data.find(item => {
+            return item.email === obj.email
+        })
+        let userByMatric = this.data.find(item => {
+            return item.matricNumber === obj.matricNumber
+        })
+        if(isEmpty || userByEmail || userByMatric || obj.password.length < 7) {
+            return false
+        } else {
+            return true
         }
     }
 }
