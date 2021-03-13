@@ -21,7 +21,10 @@ if (window.location.href.includes('register.html')){
                 document.getElementsByName('program')[0].appendChild(newList);
             });
             //updateOptions(response, 'program') // Update options tag with new data
-            });
+        })
+        .catch(error => {
+            console.log(error);
+        })
     
     // Grad Years
     fetch('/api/graduationYears', { //Fetch data using GET method
@@ -38,8 +41,10 @@ if (window.location.href.includes('register.html')){
                 newList.text = element;
                 document.getElementsByName('graduationYear')[0].appendChild(newList);
             });
-            });
-
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     
@@ -80,6 +85,9 @@ if (window.location.href.includes('register.html')){
                     errorAlert.innerHTML = mainErr; // Supposed to print error message.
                 }
             })
+            .catch(error => {
+                console.log(error);
+            })
     }
     signupForm.addEventListener('submit', handleSubmit);
 }
@@ -116,7 +124,10 @@ if (document.cookie) {
                     nameWelcome.innerHTML = `<b>Hi, ${response.firstname}</b>`;
                     document.getElementById("logout").style.display = "block";
                     document.getElementById("username").style.display = "block";
-                });
+                })
+                .catch(error => {
+                    console.log(error);
+                })
         }
         // When user clicks the logout link
         let logout = document.getElementById("logout");
@@ -180,7 +191,10 @@ if (window.location.href.includes('index.html')) {
                cardBody.appendChild(projectTags);
                document.getElementsByClassName("showcase")[0].appendChild(cardMain);
             }   
-        });
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 }
 
@@ -220,7 +234,7 @@ if (window.location.href.includes('login.html')) {
                         }    
                 })
                 .catch(error => {
-                    error
+                    console.log(error);
                 })
         }
         loginForm.addEventListener('submit', handleSubmit);
@@ -277,7 +291,7 @@ if (window.location.href.includes('login.html')) {
                         }
                 })
                 .catch(error => {
-                    error;
+                    console.log(error);
                 })
         }
         createProjectForm.addEventListener('submit', handleSubmit);
@@ -334,6 +348,9 @@ if (window.location.href.includes('login.html')) {
                         // define and store texts replacements
                         let projectAuthor = `${response.firstname} ${response.lastname}`;
                         document.getElementById("project_author").innerHTML = projectAuthor;
+                    })
+                    .catch(error => {
+                        console.log(error);
                     })
             }
     } 
