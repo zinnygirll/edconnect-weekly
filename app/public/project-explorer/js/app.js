@@ -50,6 +50,9 @@ if (window.location.href.includes('register.html')){
     
     // Add event listener when the button is clicked.
     const signupForm = document.getElementById("signupForm"); // Get the form element that I will listen to
+    const signupAlert = document.getElementById("signup-alert");
+    signupAlert.style.display = "none";
+
     function handleSubmit(event) {
         event.preventDefault();
         let regInfo = {
@@ -75,14 +78,10 @@ if (window.location.href.includes('register.html')){
                     document.cookie = `uid=${response.data.id}; path=/ `; // I am to store the id in a cookie named uid.
                     window.location.replace('index.html'); // redirect user to index.html page
                 } else if (response.status !== "ok") {
-                    let errorAlert = document.createElement("div")
-                    errorAlert.className = "alert"
-                    errorAlert.classList.add("alert-danger")
-                    errorAlert.setAttribute("role", "alert")
-                    signupForm.prepend(errorAlert)
+                    signupAlert.style.display = "block";
                     let mainErr = (response.errors).toString().replaceAll(',','<br>');
                     console.log(mainErr)
-                    errorAlert.innerHTML = mainErr; // Supposed to print error message.
+                    signupAlert.innerHTML = mainErr; // Supposed to print error message.
                 }
             })
             .catch(error => {
@@ -202,7 +201,9 @@ if (window.location.href.includes('index.html')) {
 // Login form page edits
 if (window.location.href.includes('login.html')) {
     const loginForm = document.getElementById("loginForm"); // Get the form element that I will listen to
-    const errorAlert = document.getElementById("login_alert")
+    const loginAlert = document.getElementById("login-alert")
+    loginAlert.style.display = "none";
+
     window.onload = function () {
         function handleSubmit(event) {
             event.preventDefault();
@@ -223,14 +224,9 @@ if (window.location.href.includes('login.html')) {
                         document.cookie = `uid=${response.data.id}; domain=; path=/ `; // I am to store the id in a cookie named uid.
                         window.location.replace('index.html'); // redirect user to index.html page
                     } else if (response.status !== "ok") {
-                        console.log(response)
-                        let errorAlert = document.createElement("div")
-                        errorAlert.className = "alert"
-                        errorAlert.classList.add("alert-danger")
-                        errorAlert.setAttribute("role", "alert")
-                        loginForm.prepend(errorAlert)
+                        loginAlert.style.display = "block";
                         let myErrors = "Invalid email/password";
-                        errorAlert.innerHTML = myErrors; // Supposed to print error message.
+                        loginAlert.innerHTML = myErrors; // Supposed to print error message.
                         }    
                 })
                 .catch(error => {
@@ -253,6 +249,8 @@ if (window.location.href.includes('login.html')) {
         }
         // Step 7 - Create and post projects
         const createProjectForm = document.getElementById("createProjectForm"); // Get the form element that I will listen to
+        const createprojectAlert = document.getElementById("createproject-alert");
+        createprojectAlert.style.display = "none";
 
         function handleSubmit(event) {
             event.preventDefault();
@@ -280,14 +278,10 @@ if (window.location.href.includes('login.html')) {
                         console.log(response.data)
                         window.location.replace('index.html'); // redirect user to index.html page
                     } else if (response.status !== "ok") {
-                        let errorAlert = document.createElement("div")
-                        errorAlert.className = "alert"
-                        errorAlert.classList.add("alert-danger")
-                        errorAlert.setAttribute("role", "alert")
-                        createProjectForm.prepend(errorAlert)
+                        createprojectAlert.style.display = "block";
                         let mainErr = (response.errors).toString().replaceAll(',','<br>');
                         console.log(mainErr)
-                        errorAlert.innerHTML = mainErr; // Supposed to print error message.
+                        createprojectAlert.innerHTML = mainErr; // Supposed to print error message.
                         }
                 })
                 .catch(error => {
