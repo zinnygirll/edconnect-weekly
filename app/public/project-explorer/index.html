@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Project Explore Page</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            /* Footer */
+            .myfooter{
+                background:#E9ECEF;
+                height: 50px;
+                padding: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-full bg-primary">
+            <a class="navbar-brand" href="index.html">Project Explorer</a>
+            <form class="form-inline" name="searchForm">
+                <label class="sr-only" for="searchForm">Search Projects:</label>
+                <input type="text" class="form-control" name="searchForm" placeholder="Search Projects">
+                <button type="submit" class="btn btn-outline-light">Search</button>
+            </form>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item"><a href="register.html" class="nav-link" style="color: white;" id="signup">Sign Up</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link" style="color: white;" id="login">Login</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" style="color: white; display: none;" id="logout">Logout</a></li>
+                    <li class="nav-item"><p class="navbar-text" style="color: white; display: none;" id="username"></p></li>
+                </ul>
+            </div>
+        </nav>
+        <header>
+            <div class="jumbotron">
+                <h1>Project Explorer</h1>
+                <p>Project Explorer is a repository for final year projects across all departments at your institution. You can submit your project and search projects submitted by others to learn from.</p>
+                <a class="btn btn-primary btn-lg" href="register.html" role="button">Get Started</a>
+                <a class="btn btn-secondary btn-lg" href="login.html" role="button">Login</a>
+            </div>
+        </header>
+        <main class="container">
+            <div class="row showcase justify-content-between">
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Title</h5>
+                        <h6 class="card-subtitle">Project Title</h6>
+                        <p class="card-text">Very quick example on using the card classes in bootstrap. I actually like it as it puts things in a very organised format</p>
+                    </div>
+                </div>
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Title</h5>
+                        <h6 class="card-subtitle">Project Title</h6>
+                        <p class="card-text">Very quick example on using the card classes in bootstrap. I actually like it as it puts things in a very organised format</p>
+                    </div>
+                </div>
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Title</h5>
+                        <h6 class="card-subtitle">Project Title</h6>
+                        <p class="card-text">Very quick example on using the card classes in bootstrap. I actually like it as it puts things in a very organised format</p>
+                    </div>
+                </div>
+                <div class="col card">
+                    <div class="card-body">
+                        <h5 class="card-title">Project Title</h5>
+                        <h6 class="card-subtitle">Project Title</h6>
+                        <p class="card-text">Very quick example on using the card classes in bootstrap. I actually like it as it puts things in a very organised format</p>
+                    </div>
+                </div>
+            </div>
+        </main><br><br>
+        <footer class="myfooter">
+            <p align="right">Project Explorer <span>&#169;</span> 2020 - <strong>Edconnect</strong></p>
+        </footer>
+        <script src="js/app.js"></script>
+    </body>
+</html>
