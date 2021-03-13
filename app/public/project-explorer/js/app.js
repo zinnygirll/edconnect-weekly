@@ -301,8 +301,19 @@ if (window.location.href.includes('login.html')) {
                 document.getElementById("project_abstract").innerHTML = projectAbstract;
             });
 
-            if (document.cookie != null || document.cookie != undefined) {
-                const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+            if (document.cookie) {
+                function getCookie(name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for(var i=0;i < ca.length;i++) {
+                        var c = ca[i];
+                        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                    }
+                    return null;
+                }
+            
+                const cookieValue = getCookie("uid");
                 fetch(`/api/users/${cookieValue}`, { //Use the actual id for the GET method for createdBy. Not sure of the end of this URL
                     method: 'GET',
                     headers: {
