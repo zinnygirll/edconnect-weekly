@@ -1,37 +1,6 @@
-if (document.cookie) {
-    const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
-        //console.log(cookieValue);
-        let cookieExists = cookieValue ? true : false;
-        if (cookieExists) {
-            fetch(`/api/users/${cookieValue}`, { //Fetch data using GET method
-                method: 'GET',
-                headers: {
-                'Content-Type': 'application/json',
-                }
-                })
-                .then(res => res.json())
-                .then(function(response) {
-                    document.getElementById("login").style.visibility = "hidden";
-                    document.getElementById("signup").style.visibility = "hidden";
-                    let nameWelcome = document.getElementById("username")
-                    nameWelcome.innerHTML = `<b>Hi, ${response.firstname}</b>`;
-                    document.getElementById("logout").style.display = "block";
-                    document.getElementById("username").style.display = "block";
-                });
-        }
-        // When user clicks the logout link
-        let logout = document.getElementById("logout");
-        function HandleLogout(event) {
-            event.preventDefault();
-            // Delete cookie
-            document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            // Redirect to index.html
-            window.location.replace('index.html');
-            document.getElementById("login").style.visibility = "visible";
-            document.getElementById("signup").style.visibility = "visible";
-        }
-        logout.addEventListener('click', HandleLogout);
-}
+/* if (document.cookie) {
+    
+} */
 
 
 // Register page setup
@@ -121,8 +90,41 @@ if (window.location.href.includes('register.html')){
 // Index page edits
 if (window.location.href.includes('index.html')) {
     window.onload = function () { 
-        
+        const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+        //console.log(cookieValue);
+        let cookieExists = cookieValue ? true : false;
+        if (cookieExists) {
+            fetch(`/api/users/${cookieValue}`, { //Fetch data using GET method
+                method: 'GET',
+                headers: {
+                'Content-Type': 'application/json',
+                }
+                })
+                .then(res => res.json())
+                .then(function(response) {
+                    document.getElementById("login").style.visibility = "hidden";
+                    document.getElementById("signup").style.visibility = "hidden";
+                    let nameWelcome = document.getElementById("username")
+                    nameWelcome.innerHTML = `<b>Hi, ${response.firstname}</b>`;
+                    document.getElementById("logout").style.display = "block";
+                    document.getElementById("username").style.display = "block";
+                });
+        }
+        // When user clicks the logout link
+        let logout = document.getElementById("logout");
+        function HandleLogout(event) {
+            event.preventDefault();
+            // Delete cookie
+            document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // Redirect to index.html
+            window.location.replace('index.html');
+            document.getElementById("login").style.visibility = "visible";
+            document.getElementById("signup").style.visibility = "visible";
+        }
+        logout.addEventListener('click', HandleLogout);
+
         //logDetail()
+        
         fetch('/api/projects/', { //GET projects. All of them. Although, we are gonna be working with the first 4
             method: 'GET',
             headers: {
