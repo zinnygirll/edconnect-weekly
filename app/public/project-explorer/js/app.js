@@ -73,6 +73,7 @@ if (window.location.href.includes('register.html')){
                     let errorAlert = document.createElement("div")
                     errorAlert.className = "alert"
                     errorAlert.classList.add("alert-danger")
+                    errorAlert.setAttribute("role", "alert")
                     signupForm.prepend(errorAlert)
                     let myErrors = [];
                     myErrors = response.errors;
@@ -218,6 +219,7 @@ if (window.location.href.includes('login.html')) {
                         let errorAlert = document.createElement("div")
                         errorAlert.className = "alert"
                         errorAlert.classList.add("alert-danger")
+                        errorAlert.setAttribute("role", "alert")
                         loginForm.prepend(errorAlert)
                         let myErrors = "Invalid email/password";
                         errorAlert.innerHTML = myErrors; // Supposed to print error message.
@@ -273,6 +275,7 @@ if (window.location.href.includes('login.html')) {
                         let errorAlert = document.createElement("div")
                         errorAlert.className = "alert"
                         errorAlert.classList.add("alert-danger")
+                        errorAlert.setAttribute("role", "alert")
                         createProjectForm.prepend(errorAlert)
                         let myErrors = [];
                         myErrors = response.errors;
