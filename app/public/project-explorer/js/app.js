@@ -271,13 +271,7 @@ if (window.location.href.includes('login.html')) {
                         errorAlert.classList.add("alert-danger")
                         errorAlert.setAttribute("role", "alert")
                         createProjectForm.prepend(errorAlert)
-                        let myErrors = [];
-                        myErrors = response.errors;
-                        let totalErrors = myErrors.map((item) => {
-                            return `${item} <br>`
-                        })
-                        let newErr = totalErrors.toString();
-                        let mainErr = newErr.replaceAll(',','');
+                        let mainErr = (response.errors).toString().replaceAll(',','<br>');
                         console.log(mainErr)
                         errorAlert.innerHTML = mainErr; // Supposed to print error message.
                         }
