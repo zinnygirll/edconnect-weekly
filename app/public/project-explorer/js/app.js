@@ -214,6 +214,7 @@ if (window.location.href.includes('login.html')) {
                         document.cookie = `uid=${response.data.id}; domain=; path=/ `; // I am to store the id in a cookie named uid.
                         window.location.replace('index.html'); // redirect user to index.html page
                     } else if (response.status !== "ok") {
+                        console.log(response)
                         let errorAlert = document.createElement("div")
                         errorAlert.className = "alert"
                         errorAlert.classList.add("alert-danger")
@@ -278,7 +279,7 @@ if (window.location.href.includes('login.html')) {
                         let totalErrors = myErrors.map((item) => {
                             return `${item} <br>`
                         })
-                        let newErr = totalEsrrors.toString();
+                        let newErr = totalErrors.toString();
                         let mainErr = newErr.replaceAll(',','');
                         console.log(mainErr)
                         errorAlert.innerHTML = mainErr; // Supposed to print error message.
