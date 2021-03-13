@@ -1,8 +1,3 @@
-/* if (document.cookie) {
-    
-} */
-
-
 // Register page setup
 // Program List
 if (window.location.href.includes('register.html')){
@@ -86,14 +81,11 @@ if (window.location.href.includes('register.html')){
 }
 
 
-
-// Index page edits
-if (window.location.href.includes('index.html')) {
-    window.onload = function () { 
-        const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+if (document.cookie) {
+    const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
         //console.log(cookieValue);
         let cookieExists = cookieValue ? true : false;
-        if (cookieExists) {
+        if (cookieExists === true) {
             fetch(`/api/users/${cookieValue}`, { //Fetch data using GET method
                 method: 'GET',
                 headers: {
@@ -122,9 +114,15 @@ if (window.location.href.includes('index.html')) {
             document.getElementById("signup").style.visibility = "visible";
         }
         logout.addEventListener('click', HandleLogout);
+}
 
-        //logDetail()
+
+
+// Index page edits
+if (window.location.href.includes('index.html')) {
+    window.onload = function () { 
         
+        //logDetail()
         fetch('/api/projects/', { //GET projects. All of them. Although, we are gonna be working with the first 4
             method: 'GET',
             headers: {
