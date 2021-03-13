@@ -82,7 +82,18 @@ if (window.location.href.includes('register.html')){
 
 // Log details
 if (document.cookie) {
-    const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    const cookieValue = getCookie("uid");
         //console.log(cookieValue);
         let cookieExists = cookieValue ? true : false;
         if (cookieExists === true) {
