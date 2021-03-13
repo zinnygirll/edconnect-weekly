@@ -76,10 +76,12 @@ if (window.location.href.includes('register.html')){
                     let myErrors = [];
                     myErrors = response.errors;
                     let totalErrors = myErrors.map((item) => {
-                        return `${item}<br>`
+                        return `${item} <br>`
                     })
-                    totalErrors.join("");
-                    errorAlert.innerHTML = totalErrors; // Supposed to print error message.
+                    let newErr = totalErrors.toString();
+                    let mainErr = newErr.replaceAll(',','');
+                    console.log(mainErr)
+                    errorAlert.innerHTML = mainErr; // Supposed to print error message.
                 }
             })
     }
@@ -270,8 +272,10 @@ if (window.location.href.includes('login.html')) {
                         let totalErrors = myErrors.map((item) => {
                             return `${item}<br>`
                         })
-                        totalErrors.join("");
-                        errorAlert.innerHTML = totalErrors; // Supposed to print error message.
+                        let newErr = totalErrors.toString();
+                        let mainErr = newErr.replaceAll(',','');
+                        console.log(mainErr)
+                        errorAlert.innerHTML = mainErr; // Supposed to print error message.
                     }
                 })
                 .catch(error => {
