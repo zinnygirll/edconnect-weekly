@@ -82,7 +82,7 @@ if (window.location.href.includes('register.html')){
 
 // Log details
 function logDetail () {
-    if (document.cookie !== null) {
+    if (document.cookie != null || document.cookie != undefined) {
         const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
             //console.log(cookieValue);
             let cookieExists = cookieValue ? true : false;
@@ -297,18 +297,20 @@ if (window.location.href.includes('login.html')) {
                 document.getElementById("project_abstract").innerHTML = projectAbstract;
             });
 
-            const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
-            fetch(`/api/users/${cookieValue}`, { //Use the actual id for the GET method for createdBy. Not sure of the end of this URL
-                method: 'GET',
-                headers: {
-                'Content-Type': 'application/json',
-            }
-            })
-                .then(response => response.json())
-                .then(function(response) {
-                    // define and store texts replacements
-                    let projectAuthor = `${response.firstname} ${response.lastname}`;
-                    document.getElementById("project_author").innerHTML = projectAuthor;
+            if (document.cookie != null || document.cookie != undefined) {
+                const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+                fetch(`/api/users/${cookieValue}`, { //Use the actual id for the GET method for createdBy. Not sure of the end of this URL
+                    method: 'GET',
+                    headers: {
+                    'Content-Type': 'application/json',
+                }
                 })
+                    .then(response => response.json())
+                    .then(function(response) {
+                        // define and store texts replacements
+                        let projectAuthor = `${response.firstname} ${response.lastname}`;
+                        document.getElementById("project_author").innerHTML = projectAuthor;
+                    })
+            }
     } 
  }
