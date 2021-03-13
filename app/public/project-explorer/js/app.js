@@ -80,49 +80,49 @@ if (window.location.href.includes('register.html')){
     signupForm.addEventListener('submit', handleSubmit);
 }
 
-
-if (document.cookie !== null) {
-    const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
-        //console.log(cookieValue);
-        let cookieExists = cookieValue ? true : false;
-        if (cookieExists === true) {
-            fetch(`/api/users/${cookieValue}`, { //Fetch data using GET method
-                method: 'GET',
-                headers: {
-                'Content-Type': 'application/json',
-                }
-                })
-                .then(res => res.json())
-                .then(function(response) {
-                    document.getElementById("login").style.visibility = "hidden";
-                    document.getElementById("signup").style.visibility = "hidden";
-                    let nameWelcome = document.getElementById("username")
-                    nameWelcome.innerHTML = `<b>Hi, ${response.firstname}</b>`;
-                    document.getElementById("logout").style.display = "block";
-                    document.getElementById("username").style.display = "block";
-                });
-        }
-        // When user clicks the logout link
-        let logout = document.getElementById("logout");
-        function HandleLogout(event) {
-            event.preventDefault();
-            // Delete cookie
-            document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            // Redirect to index.html
-            window.location.replace('index.html');
-            document.getElementById("login").style.visibility = "visible";
-            document.getElementById("signup").style.visibility = "visible";
-        }
-        logout.addEventListener('click', HandleLogout);
+// Log details
+function logDetail () {
+    if (document.cookie !== null) {
+        const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
+            //console.log(cookieValue);
+            let cookieExists = cookieValue ? true : false;
+            if (cookieExists === true) {
+                fetch(`/api/users/${cookieValue}`, { //Fetch data using GET method
+                    method: 'GET',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    }
+                    })
+                    .then(res => res.json())
+                    .then(function(response) {
+                        document.getElementById("login").style.visibility = "hidden";
+                        document.getElementById("signup").style.visibility = "hidden";
+                        let nameWelcome = document.getElementById("username")
+                        nameWelcome.innerHTML = `<b>Hi, ${response.firstname}</b>`;
+                        document.getElementById("logout").style.display = "block";
+                        document.getElementById("username").style.display = "block";
+                    });
+            }
+            // When user clicks the logout link
+            let logout = document.getElementById("logout");
+            function HandleLogout(event) {
+                event.preventDefault();
+                // Delete cookie
+                document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                // Redirect to index.html
+                window.location.replace('index.html');
+                document.getElementById("login").style.visibility = "visible";
+                document.getElementById("signup").style.visibility = "visible";
+            }
+            logout.addEventListener('click', HandleLogout);
+    }
 }
-
-
 
 // Index page edits
 if (window.location.href.includes('index.html')) {
     window.onload = function () { 
         
-        //logDetail()
+        logDetail()
         fetch('/api/projects/', { //GET projects. All of them. Although, we are gonna be working with the first 4
             method: 'GET',
             headers: {
@@ -175,7 +175,7 @@ if (window.location.href.includes('index.html')) {
 
 // Login form page edits
 if (window.location.href.includes('login.html')) {
-    //logDetail()
+    logDetail()
     const loginForm = document.getElementById("loginForm"); // Get the form element that I will listen to
     const errorAlert = document.getElementById("login_alert")
     window.onload = function () {
@@ -215,7 +215,7 @@ if (window.location.href.includes('login.html')) {
  // Create project page edits
  if (window.location.href.includes('createproject.html')) {
     window.onload = function () {
-        //logDetail()
+        logDetail()
         // Step 8 - Limit ability to create project to only logged peeps
         // Check if cookie id exists
         let cookieCheck = document.cookie.split(';').some((item) => item.trim().startsWith('uid='));
@@ -274,7 +274,7 @@ if (window.location.href.includes('login.html')) {
  // View project page edits
  if (window.location.href.includes('viewproject.html')) {
     window.onload = function () {
-        //logDetail()
+        logDetail()
         let params = new URLSearchParams(document.location.search.substring(1));
         let pId = params.get("id");
 
