@@ -81,7 +81,7 @@ if (window.location.href.includes('register.html')){
 }
 
 
-if (document.cookie) {
+if (document.cookie !== null) {
     const cookieValue = document.cookie.split('; ').find(row => row.startsWith('uid=')).split('=')[1];
         //console.log(cookieValue);
         let cookieExists = cookieValue ? true : false;
