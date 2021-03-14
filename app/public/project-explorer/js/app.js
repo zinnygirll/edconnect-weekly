@@ -316,22 +316,9 @@ if (window.location.href.includes('login.html')) {
                 document.getElementById("project_tags").innerHTML = projectTags;
                 let projectAbstract = response.abstract;
                 document.getElementById("project_abstract").innerHTML = projectAbstract;
-            });
 
-            if (document.cookie) {
-                function getCookie(name) {
-                    var nameEQ = name + "=";
-                    var ca = document.cookie.split(';');
-                    for(var i=0;i < ca.length;i++) {
-                        var c = ca[i];
-                        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-                        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-                    }
-                    return null;
-                }
-            
-                const cookieValue = getCookie("uid");
-                fetch(`/api/users/${cookieValue}`, { //Use the actual id for the GET method for createdBy. Not sure of the end of this URL
+
+                fetch(`/api/users/${response.createdBy}`, { //Use the actual id for the GET method for createdBy. Not sure of the end of this URL
                     method: 'GET',
                     headers: {
                     'Content-Type': 'application/json',
@@ -346,6 +333,8 @@ if (window.location.href.includes('login.html')) {
                     .catch(error => {
                         console.log(error);
                     })
-            }
+            });
+            
+                
     } 
  }
