@@ -29,8 +29,6 @@ const Login = (props) => {
       }
 
       const loginAlert = document.getElementById("login-alert");
-      var now = new Date();
-      now.setTime(now.getTime() + 1 * 3600 * 1000);
 
       fetch('/api/login', {
           method: 'POST',
@@ -42,7 +40,7 @@ const Login = (props) => {
           .then(response => response.json())
           .then ((response) => {
               if (response.status === "ok") {
-                  document.cookie = `uid=${response.data.id}; expires= + ${now.toUTCString()} + ; path=/ `; // I am to store the id in a cookie named uid.
+                  document.cookie = `uid=${response.data.id}; domain=; path=/ `; // I am to store the id in a cookie named uid.
                   history.push("/"); // redirect user to home page
               } else if (response.status !== "ok") {
                   loginAlert.style.display = "block";
