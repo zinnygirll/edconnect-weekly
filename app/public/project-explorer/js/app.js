@@ -307,6 +307,7 @@ if (window.location.href.includes('login.html')) {
         })
             .then(response => response.json())
             .then(function(response) {
+                console.log(response)
                 // define and store texts replacements
                 let projectName = response.name;
                 document.getElementById("project_name").innerHTML = projectName;
