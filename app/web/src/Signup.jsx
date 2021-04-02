@@ -13,6 +13,8 @@ const Signup = (props) => {
     const [matricNumber, setMatricNmber] = useState('');
     const [programName, setProgramName] = useState('');
     const [graduateYear, setGraduateYear] = useState('');
+    const [alerts, setAlerts] = useState([]);
+    const [alertBlock, setAlertBlock] = useState(false);
     let history = useHistory();
 
     useEffect(() => {
@@ -74,8 +76,6 @@ const Signup = (props) => {
             graduationYear : graduateYear,
         }
 
-        const signupAlert = document.getElementById("signup-alert");
-
         fetch('/api/register', {
             method: 'POST',
             body: JSON.stringify(regInfo), // All form data
@@ -89,9 +89,8 @@ const Signup = (props) => {
                     document.cookie = `uid=${response.data.id}; path=/ `; // I am to store the id in a cookie named uid.
                     history.push("/"); // redirect user to home page
                 } else if (response.status !== "ok") {
-                    signupAlert.style.display = "block";
-                    let mainErr = (response.errors).toString().replaceAll(',','<br>');
-                    signupAlert.innerHTML = mainErr; // Supposed to print error message.
+                    setAlertBlock(true);
+                    setAlerts(response.errors); // Supposed to print error message.
                 }
             })
     }
@@ -101,8 +100,10 @@ const Signup = (props) => {
             <main className="mx-auto w-50 p-3">
             <h1>Signup</h1>
             <Form id="signupForm" onSubmit={handleSubmit}> 
-                <Alert variant="danger" id="signup-alert" style={{display: 'none'}}></Alert>
-
+                {alertBlock && (
+                  <Alert variant="danger">
+                    {alerts.map((anyAlert) => { return <> {anyAlert} <br/></>})}
+                  </Alert>)}
                 <Form.Group as={Row}>
                     <Col>
                         <Form.Label for="firstName">First Name:</Form.Label>

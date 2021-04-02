@@ -6,6 +6,8 @@ import Layout from './shared/Layout';
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [alerts, setAlerts] = useState([]);
+    const [alertBlock, setAlertBlock] = useState(false);
     let history = useHistory();
 
 
@@ -43,11 +45,11 @@ const Login = (props) => {
                   document.cookie = `uid=${response.data.id}; domain=; path=/ `; // I am to store the id in a cookie named uid.
                   history.push("/"); // redirect user to home page
               } else if (response.status !== "ok") {
-                  loginAlert.style.display = "block";
-                  loginAlert.innerHTML = "Invalid email/password"; // Supposed to print error message.
+                    setAlertBlock(true);
+                    setAlerts("Invalid email/password"); // Supposed to print error message.
               }
           })
-  }
+    }
 
 
     return (
@@ -55,7 +57,7 @@ const Login = (props) => {
             <main className="mx-auto w-50 p-3">
               <h1>Login</h1>
               <Form id="loginForm" className="w-40 p-3" onSubmit={handleSubmit}>
-                    <Alert variant="danger" id="login-alert" style={{display: 'none'}}></Alert>
+                {alertBlock && (<Alert variant="danger">{alerts}</Alert>)}
                     <Form.Group as={Row}>
                       <Form.Label>Email Address:</Form.Label>
                       <Form.Control type="email" 

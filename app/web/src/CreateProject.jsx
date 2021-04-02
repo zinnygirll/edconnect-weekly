@@ -6,8 +6,10 @@ import Layout from './shared/Layout';
 const CreateProject = (props) => {
   const [projectName, setProjectName] = useState('');
   const [abstract, setAbstract] = useState('');
-  const [authors, setAuthors] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [authors, setAuthors] = useState('');
+  const [tags, setTags] = useState('');
+  const [alerts, setAlerts] = useState([]);
+  const [alertBlock, setAlertBlock] = useState(false);
   let history = useHistory();
 
   const handleInputChange = event => {
@@ -41,8 +43,7 @@ const CreateProject = (props) => {
         abstract : abstract,
         tags : tags.split(",")
     }
-    
-    const createProjectAlert = document.getElementById("createproject-alert");
+
 
     fetch('/api/projects', {
         method: 'POST',
@@ -56,18 +57,21 @@ const CreateProject = (props) => {
             if (response.status === "ok") {
                 history.push("/"); // redirect user to home page
             } else if (response.status !== "ok") {
-                createProjectAlert.style.display = "block";
-                createProjectAlert.innerHTML = (response.errors).toString().replaceAll(',','<br>'); // Supposed to print error message.
+                setAlertBlock(true);
+                setAlerts(response.errors); // Supposed to print error message.
             }
         })
   }
 
     return(
         <Layout>
-          <main class="mx-auto w-50 p-3" id="createProjectForm">
+          <main class="mx-auto w-50 p-3">
             <h3>Submit Project</h3>
             <Form name="submitProject" onSubmit={handleSubmit}> 
-                <Alert variant="danger" id="createproject-alert" style={{display: 'none'}}></Alert>
+                  {alertBlock && (
+                  <Alert variant="danger">
+                    {alerts.map((anyAlert) => { return <> {anyAlert} <br/></>})}
+                  </Alert>)}
                   <Form.Group>
                     <Form.Label for="name" class="form-label">Project Name:</Form.Label>
                     <Form.Control type="text" 

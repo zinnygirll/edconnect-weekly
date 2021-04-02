@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {Button, Form, FormControl, FormLabel, Nav, Navbar} from 'react-bootstrap';
 
 const Header = () => {
+    const [username, setUsername] = useState('');
+    const [biscuit, setBiscuit] = useState(false);
     let history = useHistory();
 
     if (document.cookie) {
@@ -24,26 +26,16 @@ const Header = () => {
             fetch(`/api/users/${cookieValue}`)
                 .then(res => res.json())
                 .then(function(response) {
-                    document.getElementById("login").style.visibility = "hidden";
-                    document.getElementById("signup").style.visibility = "hidden";
-                    document.getElementById("logout").style.display = "block";
-                    document.getElementById("username").style.display = "block";
-                    document.getElementById("username").innerHTML = `<b> Hi ${response.firstname} </b>`;
+                    setUsername(`Hi ${response.firstname}`);
+                    setBiscuit(true);
                 })
         }
     }
 
     // When user clicks the logout link
     function HandleLogout(event) {
-        event.preventDefault();
-        // Delete cookie
-        document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        // Redirect to home page
-        history.push('/')
-        document.getElementById("login").style.visibility = "visible";
-        document.getElementById("signup").style.visibility = "visible";
-        document.getElementById("logout").style.display = "none";
-        document.getElementById("username").style.display = "none";
+        document.cookie = "uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Delete cookie
+        history.push('/') // Redirect to home page
     }
 
 
@@ -61,10 +53,14 @@ const Header = () => {
                 </Nav>
 
                 <Nav className="ml-auto">
+                    {biscuit ? 
+                    (<>
+                    <Nav.Link href="#" id="logout" onClick={HandleLogout}>Logout</Nav.Link>
+                    <Navbar.Text id="username">{username}</Navbar.Text>
+                    </>) : (<>
                     <Nav.Link href="/signup" id="signup">Sign Up</Nav.Link>
                     <Nav.Link href="/login" id="login">Login</Nav.Link>
-                    <Nav.Link href="#" id="logout" onClick={HandleLogout} style={{display: 'none'}}>Logout</Nav.Link>
-                    <Navbar.Text id="username" style={{display: 'none'}}></Navbar.Text>
+                    </>)}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
