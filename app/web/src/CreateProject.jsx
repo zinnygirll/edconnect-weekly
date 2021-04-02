@@ -67,7 +67,7 @@ const CreateProject = (props) => {
         <Layout>
           <main class="mx-auto w-50 p-3">
             <h3>Submit Project</h3>
-            <Form name="submitProject" onSubmit={handleSubmit}> 
+            <Form name="submitProject" onSubmit={handleSubmit} id="createProjectForm"> 
                   {alertBlock && (
                   <Alert variant="danger">
                     {alerts.map((anyAlert) => { return <> {anyAlert} <br/></>})}
