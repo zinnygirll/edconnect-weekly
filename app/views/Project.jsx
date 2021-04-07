@@ -5,7 +5,7 @@ import Layout from './shared/Layout';
 const Project = (props) => {
 
     return (
-        <Layout>
+        <Layout user={props.user}>
             <main> <br /><br />
                 <Container>
                     <Row>

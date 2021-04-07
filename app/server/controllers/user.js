@@ -10,15 +10,25 @@ router.get('/signup', (req, res) => {
   res.render('Signup', { 
     props1: school.getPrograms(), 
     props2: school.getGradYears(),
-    props3: error
+    props3: error,
+    user: req.session.user
   });
 });
 
 
 router.post('/signup', (req, res) => {
-  const results = user.create(req.body);
+  let regInfo = {
+    firstname :  req.body.firstName,
+    lastname : req.body.lastName,
+    email : req.body.email,
+    password : req.body.password,
+    matricNumber : req.body.matricNumber,
+    program : req.body.program,
+    graduationYear : req.body.graduationYear,
+  }
+  const results = user.create(regInfo);
   if (results[0] === true) {
-    req.session.user = user;
+    req.session.user = regInfo;
     res.redirect('/');
   } else {
     const error = results[1];
@@ -31,13 +41,13 @@ router.post('/signup', (req, res) => {
 router.get('/login', (req, res) => {
   // add code to render the Login Component
   const error = req.flash("error");
-  res.render('Login', { props: error });
+  res.render('Login', { props: error, user: req.session.user });
 });
 
 router.post('/login', (req, res) => {
   const results = user.authenticate(req.body.email, req.body.password);
   if (results[0] === true) {
-    req.session.user = user;
+    req.session.user = results[1];
     res.redirect('/');
   } else {
     const error = results[1];

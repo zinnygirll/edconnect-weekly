@@ -7,7 +7,7 @@ const user = require('../services/user');
 router.get('/projects/submit', (req, res) => {
   // add code to render the CreateProject Component
   const error = req.flash("error");
-  res.render('CreateProject', { props: error });
+  res.render('CreateProject', { props: error, user: req.session.user });
   !req.session.user && res.redirect('/login');
 });
 
@@ -33,7 +33,7 @@ router.get('/project/:id', (req, res) => {
   // add code to render the CreateProject Component
   const params = req.params.id;
   const userParams = project.getById(params);
-  res.render('Project', { props1: userParams, props2: user.getById(userParams.createdBy) });
+  res.render('Project', { props1: userParams, props2: user.getById(userParams.createdBy), user: req.session.user });
 });
 
 

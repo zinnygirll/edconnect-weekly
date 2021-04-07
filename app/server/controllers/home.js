@@ -8,7 +8,6 @@ router.get('/', (req, res) => {
   const project = projects.getAll()
   const user = req.session.user
   res.render('Home', { project, user });
-  console.log(user)
   if (req.session.user) {
     res.render('Signup', { user: req.session.user })
   }
@@ -17,8 +16,8 @@ router.get('/', (req, res) => {
 
 router.get('/logout', (req, res) => {
   // add code to destroy the session/cookie
-  req.session.user.destroy();
-  res.redirect('/');
+  req.session.destroy();
+  res.redirect('/')
 });
 
 

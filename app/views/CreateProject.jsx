@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import Layout from './shared/Layout';
 
-const CreateProject = (props) => {
+const CreateProject = ({ props, user }) => {
 
     return(
-        <Layout>
+        <Layout user={user}>
           <main class="mx-auto w-50 p-3">
             <h3>Submit Project</h3>
             <Form name="submitProject" id="createProjectForm" action="/projects/submit" method="POST"> 
-                  {props.props.length > 0 && (
+                  {props.length > 0 && (
                   <Alert variant="danger">
-                    {props.props.map((anyAlert) => { return <> {anyAlert} <br/></>})}
+                    {props.map((anyAlert) => { return <> {anyAlert} <br/></>})}
                   </Alert>)}
                   <Form.Group>
                     <Form.Label>Project Name:</Form.Label>

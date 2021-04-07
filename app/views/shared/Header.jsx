@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, FormControl, FormLabel, Nav, Navbar} from 'react-bootstrap';
 
 const Header = (props) => {
-console.log(props)
+
     return (
         <Navbar bg="primary" expand="lg" variant="dark full">
             <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
