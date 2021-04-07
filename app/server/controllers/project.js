@@ -16,7 +16,8 @@ router.post('/projects/submit', (req, res) => {
     name :  req.body.name,
     abstract : req.body.abstract,
     tags : req.body.tags.split(","),
-    authors : req.body.authors.split(",")
+    authors : req.body.authors.split(","),
+    createdBy : req.session.user.id
   }
   const results = project.create(projectInfo);
   if (results[0] === true) {
