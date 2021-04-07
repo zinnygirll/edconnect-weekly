@@ -14,19 +14,19 @@ const CreateProject = ({ props, user }) => {
                     {props.map((anyAlert) => { return <> {anyAlert} <br/></>})}
                   </Alert>)}
                   <Form.Group>
-                    <Form.Label>Project Name:</Form.Label>
+                    <Form.Label for="name" class="form-label">Project Name:</Form.Label>
                     <Form.Control type="text" id="name" name="name" placeholder="Enter project name" />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Project Abstract:</Form.Label>
+                    <Form.Label for="abstract" class="form-label">Project Abstract:</Form.Label>
                     <Form.Control as="textarea" id="abstract" name="abstract" rows={4} cols={100} />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Author(s):</Form.Label>
+                    <Form.Label for="authors" class="form-label">Author(s):</Form.Label>
                     <Form.Control type="text" id="authors" name="authors" placeholder="Enter author names (seperated by comma)" />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Tag(s):</Form.Label>
+                    <Form.Label for="tags" class="form-label">Tag(s):</Form.Label>
                     <Form.Control type="text" id="tags" name="tags" placeholder="Use # to tag project with different topics" />
                   </Form.Group>
                   <Button variant="primary" type="submit">Continue</Button>
