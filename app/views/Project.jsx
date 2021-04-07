@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-boots
 import Layout from './shared/Layout';
 
 const Project = (props) => {
-
+console.log(props)
     return (
         <Layout user={props.user}>
             <main> <br /><br />
