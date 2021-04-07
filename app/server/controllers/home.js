@@ -6,11 +6,8 @@ const projects = require('../services/project');
 router.get('/', (req, res) => {
   // add code to render the Home Component, and pass in the projects as a props
   const project = projects.getAll()
-  const user = req.session.user
+  const user = req.session.user;
   res.render('Home', { project, user });
-  if (req.session.user) {
-    res.render('Signup', { user: req.session.user })
-  }
 });
 
 

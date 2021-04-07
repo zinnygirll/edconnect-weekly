@@ -16,7 +16,7 @@ const Home = (props) => {
 
                 <Container>
                     <Row className="showcase justify-content-between">
-                        {props.project.slice(0,4).map(project => <Col>
+                        {props.project.reverse().slice(0,4).map(project => <Col>
                             <Card>
                                 <Card.Body>
                                     <Card.Title><a href={`/project/${project.id}`}>{project.name}</a></Card.Title>
