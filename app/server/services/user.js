@@ -32,12 +32,12 @@ const authenticate = async (email, password) => {
     user.password = password;
     const result = await User.findOne({ email });
     // Get user data if email and password match
-    if (user.validPassword(user.password, result)) {
+    if (result && user.validPassword(result, user.password)) {
       return [true, result];
     }
   } 
   catch (error) {
-    /* Incase of error, catch, do ya thing! */
+    /* Incase of an error, catch, do ya thing! */
     return [false, ["Invalid email/password"]];
   };
 };
