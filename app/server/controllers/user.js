@@ -16,7 +16,7 @@ router.get('/signup', (req, res) => {
 });
 
 
-router.post('/signup', (req, res) => {
+router.post('/signup', async (req, res) => {
   let regInfo = {
     firstname :  req.body.firstName,
     lastname : req.body.lastName,
@@ -26,9 +26,9 @@ router.post('/signup', (req, res) => {
     program : req.body.program,
     graduationYear : req.body.graduationYear,
   }
-  const results = user.create(regInfo);
+  const results = await user.create(regInfo);
   if (results[0] === true) {
-    req.session.user = regInfo;
+    req.session.user = results[1];
     res.redirect('/');
   } else {
     const error = results[1];
@@ -44,10 +44,11 @@ router.get('/login', (req, res) => {
   res.render('Login', { props: error, user: req.session.user });
 });
 
-router.post('/login', (req, res) => {
-  const results = user.authenticate(req.body.email, req.body.password);
+router.post('/login', async (req, res) => {
+  const results = await user.authenticate(req.body.email, req.body.password);
   if (results[0] === true) {
     req.session.user = results[1];
+    //console.log(req.session.user)
     res.redirect('/');
   } else {
     const error = results[1];

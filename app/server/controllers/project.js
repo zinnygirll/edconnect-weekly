@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+//const User = require("../models/user");
+//const Project = require("../models/project");
 const project = require('../services/project');
 const user = require('../services/user');
 
@@ -11,15 +13,16 @@ router.get('/projects/submit', (req, res) => {
   !req.session.user && res.redirect('/login');
 });
 
-router.post('/projects/submit', (req, res) => {
+router.post('/projects/submit', async (req, res) => {
   let projectInfo = {
     name :  req.body.name,
     abstract : req.body.abstract,
     tags : req.body.tags.split(","),
     authors : req.body.authors.split(","),
-    createdBy : req.session.user.id
+    createdBy : req.session.user._id
   }
-  const results = project.create(projectInfo);
+  
+  const results = await project.create(projectInfo);
   if (results[0] === true) {
     res.redirect('/');
   } else {
@@ -30,11 +33,11 @@ router.post('/projects/submit', (req, res) => {
 });
 
 
-router.get('/project/:id', (req, res) => {
+router.get('/project/:id', async (req, res) => {
   // add code to render the CreateProject Component
   const params = req.params.id;
-  const userParams = project.getById(params);
-  res.render('Project', { props1: userParams, props2: user.getById(userParams.createdBy), user: req.session.user });
+  const userParams = await project.getById(params);
+  res.render('Project', { props1: userParams, props2: await user.getById(userParams.createdBy), user: req.session.user });
 });
 
 

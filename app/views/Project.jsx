@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-boots
 import Layout from './shared/Layout';
 
 const Project = (props) => {
-console.log(props)
+//console.log(props)
     return (
         <Layout user={props.user}>
             <main> <br /><br />
@@ -18,11 +18,11 @@ console.log(props)
                         </Col>
                         <Col>
                             <p>Date Created</p>
-                            <p>2020-08-30</p>
+                            <p>{new Date(props.props1.createdAt).toLocaleDateString()}</p>
                         </Col>
                         <Col>
                             <p>Last Updated</p>
-                            <p>2020-08-30</p>
+                            <p>{new Date(props.props1.updatedAt).toLocaleDateString()}</p>
                         </Col>
                         <Col className="mx-auto justify-content-end">
                             <Button href="/createproject" variant="primary" size="lg">Edit Project</Button>

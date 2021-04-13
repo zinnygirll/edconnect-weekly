@@ -3,9 +3,9 @@ const router = express.Router();
 const projects = require('../services/project');
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // add code to render the Home Component, and pass in the projects as a props
-  const project = projects.getAll()
+  const project = await projects.getAll()
   const user = req.session.user;
   res.render('Home', { project, user });
 });

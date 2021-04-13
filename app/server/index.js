@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const register = require("@react-ssr/express/register");
 const flash = require('express-flash');
+const mongoose = require("mongoose");
 const app = express();
 const SERVER_PORT = process.env.SERVER_PORT;
 
@@ -20,8 +21,13 @@ register(app).then(() => {
     });
     
     app.use(morgan('combined'));
-    app.use(bodyParser.json());
+    /* app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({
+        extended: true
+    })); */
+
+    app.use(express.json());
+    app.use(express.urlencoded({
         extended: true
     }));
     
@@ -45,5 +51,39 @@ register(app).then(() => {
     
     
     app.listen(SERVER_PORT, () => console.log('Server listening on port ' + SERVER_PORT));
+
+    mongoose.set("bufferCommands", false);
+
+    mongoose.connect(
+
+        process.env.MONGODB_URI, // connection string from .env file
+
+        {
+
+            useNewUrlParser: true,
+
+            useUnifiedTopology: true,
+
+            useCreateIndex: true,
+
+        },
+
+        // callback that’s called when connection succeeds or fails.
+
+        (err) => {
+
+            if (err) {
+
+            console.log("Error connecting to db: ", err);
+
+            } else {
+
+            console.log(`Connected to MongoDB @ ${process.env.MONGODB_URI}`);
+
+            }
+
+        }
+
+    );
  
 })
