@@ -26,7 +26,6 @@ const create = async ({firstname, lastname, email, password, matricNumber, progr
 
 /* Authenticate a user */
 const authenticate = async (email, password) => {
-  try {
     const user = new User();
     user.email = email;
     user.password = password;
@@ -34,12 +33,10 @@ const authenticate = async (email, password) => {
     // Get user data if email and password match
     if (result && user.validPassword(result, user.password)) {
       return [true, result];
+    } else {
+      /* Incase of an error, catch, do ya thing! */
+      return [false, ["Invalid email/password"]];
     }
-  } 
-  catch (error) {
-    /* Incase of an error, catch, do ya thing! */
-    return [false, ["Invalid email/password"]];
-  };
 };
 
 /* Return user with specified id */

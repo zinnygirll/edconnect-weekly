@@ -26,13 +26,7 @@ UserSchema.methods.setPassword = function(password) {
 };
 
 UserSchema.methods.validPassword = function(result, password) {
-    const salt = result.salt;
-    const letSee = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-    if (result.password === letSee) {
-        return true;
-    } else {
-        throw new Error ("Invalid email/password");
-    }
+    return result.password === crypto.pbkdf2Sync(password, result.salt, 1000, 64, 'sha512').toString('hex');
 };
 
 
