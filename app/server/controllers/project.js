@@ -5,7 +5,6 @@ const router = express.Router();
 const project = require('../services/project');
 const user = require('../services/user');
 
-
 router.get('/projects/submit', (req, res) => {
   // add code to render the CreateProject Component
   const error = req.flash("error");
@@ -17,8 +16,8 @@ router.post('/projects/submit', async (req, res) => {
   let projectInfo = {
     name :  req.body.name,
     abstract : req.body.abstract,
-    tags : req.body.tags.split(","),
-    authors : req.body.authors.split(","),
+    tags : req.body.tags.split(", "),
+    authors : req.body.authors.split(", "),
     createdBy : req.session.user._id
   }
   
@@ -32,13 +31,13 @@ router.post('/projects/submit', async (req, res) => {
   }
 });
 
-
 router.get('/project/:id', async (req, res) => {
   // add code to render the CreateProject Component
   const params = req.params.id;
   const userParams = await project.getById(params);
+  const result = await project.updateVisit(params);
+  console.log(result)
   res.render('Project', { props1: userParams, props2: await user.getById(userParams.createdBy), user: req.session.user });
 });
-
 
 module.exports = router;

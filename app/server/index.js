@@ -46,6 +46,7 @@ register(app).then(() => {
     app.use("/", require("./controllers/home"));
     app.use("/", require("./controllers/user"));
     app.use("/", require("./controllers/project"));
+    app.use("/", require("./controllers/search"));
     app.use(express.static('public'));
     
     
@@ -65,6 +66,8 @@ register(app).then(() => {
             useUnifiedTopology: true,
 
             useCreateIndex: true,
+
+            useFindAndModify: false
 
         },
 

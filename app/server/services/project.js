@@ -33,7 +33,54 @@ const getAll = async () => {
   return await Project.find();
 };
 
+/* update page view time */
+const updateVisit = async (id) => {
+  // Update or create new field showing the last time a project page was viewed.
+  const filter = { _id: id };
+  const update = { lastVisited: new Date() };
+  return await Project.findOneAndUpdate(filter, update, { new: true });
+};
+
+/* Return searched projects */
+const projectSearch = async (searchGroup, searchQuery, page, limit) => {
+
+  // Exact keywords to be searched. Change query based on selected searchType
+  let query;
+  switch (searchGroup) {
+    case "name":
+      query = {'name': {'$regex': `${searchQuery}`}};
+      break;
+    case "abstract":
+      query = {'abstract': {'$regex': `${searchQuery}`}};
+      break;
+    case "authors":
+      query = {'authors': {'$regex': `${searchQuery}`}};
+      break;
+    case "tags":
+      query = {'tags': {'$regex': `${searchQuery}`}};
+      break;
+  }
+
+  // offset calculations for the skip cursor
+  let perPage = parseInt(limit);
+  let offsetValue = (parseInt(page) - 1) * perPage;
+  
+  // populate projects with data from file that includes searched keywords
+  const returnedProject = await Project.find(query).skip(offsetValue).limit(perPage);
+  const projectCount = await Project.find(query).countDocuments();
+  const totalPages = Math.ceil(projectCount / perPage);
+
+  if (returnedProject.length > 0) {
+    // Put in array so we can have the projects and total figure
+    return [true, returnedProject, projectCount, searchGroup, searchQuery, totalPages, parseInt(page)]
+  } else {
+    return [false, "No projects matching your description was found"]
+  }
+};
+
 module.exports = {
+  updateVisit,
+  projectSearch,
   getAll,
   create,
   getById

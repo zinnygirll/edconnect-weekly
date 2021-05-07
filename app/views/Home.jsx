@@ -22,7 +22,7 @@ const Home = (props) => {
                                     <Card.Title><a href={`/project/${project.id}`}>{project.name}</a></Card.Title>
                                     <Card.Subtitle>{project.authors}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    <Card.Footer>{project.tags}</Card.Footer>
+                                    <Card.Footer>{project.tags.map(tag => <a href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</a>)}</Card.Footer>
                                 </Card.Body>
                             </Card>
                         </Col>)}
