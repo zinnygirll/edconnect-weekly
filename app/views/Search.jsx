@@ -18,7 +18,7 @@ const Search = (props) => {
                         </Form.Group>
 
                         <Form.Group as={Col}>
-                            <Form.Label for="searchType" className="sr-only">Search By:</Form.Label>
+                            <Form.Label htmlFor="searchType" className="sr-only">Search By:</Form.Label>
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Search By:</InputGroup.Text>
@@ -42,7 +42,8 @@ const Search = (props) => {
             <Container>
                 <Row style={{display: 'flex'}} >
                     <Col>
-                        <p><strong>All Projects </strong>( {(props.noProject === "" || props.noProject === undefined || !props.noProject) ? props.noProject : props.count} results )</p>
+                        {(props.count === "" || props.count === undefined || !props.count) && (<p> {props.noProject} </p>)}
+                        {props.count > 0 && (<p><strong>All Projects </strong>( {props.count} results )</p>)}
                     </Col>
                     <Col className="d-flex justify-content-end">
                         {props.count > 0 && (<Pagination>
@@ -54,30 +55,32 @@ const Search = (props) => {
                 </Row>
                 {(props.searchProject && props.searchProject.length > 0) && (
                     <Row className="justify-content-start">
-                        {props.searchProject.slice(0,2).map(project => <Col lg={3}> 
+                        {props.searchProject.slice(0,4).map(project => <Col key={project.name} lg={3}> 
                             <Card>
                                 <Card.Body>
                                     <Card.Title><a href={`/project/${project._id}`}>{project.name}</a></Card.Title>
-                                    <Card.Subtitle>{project.authors}</Card.Subtitle>
+                                    <Card.Subtitle>{project.authors.map(author => <Card.Link key={author} style={{color: "black"}}>{author}</Card.Link>)}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    <Card.Text>Last visited: {props.updatedAt}</Card.Text>
-                                    <Card.Footer>{project.tags.map(tag => <a href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</a>)}</Card.Footer>
+                                    {project.lastVisited && (
+                                    <Card.Text>Last visited: {new Date(project.lastVisited).toLocaleDateString()}</Card.Text>)}  
                                 </Card.Body>
+                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
                             </Card>
                         </Col>)}
                     </Row>
                 )}
                 {(props.searchProject && props.searchProject.length > 0) && (
                     <Row className="justify-content-start" style={{marginTop: 20}}>
-                        {props.searchProject.slice(2,4).map(project => <Col lg={3}> 
+                        {props.searchProject.slice(4,8).map(project => <Col key={project.name} lg={3}> 
                             <Card>
                                 <Card.Body>
                                     <Card.Title><a href={`/project/${project._id}`}>{project.name}</a></Card.Title>
-                                    <Card.Subtitle>{project.authors}</Card.Subtitle>
+                                    <Card.Subtitle>{project.authors.map(author => <Card.Link key={author} style={{color: "black"}}>{author}</Card.Link>)}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    <Card.Text>Last visited: {props.updatedAt}</Card.Text>
-                                    <Card.Footer>{project.tags.map(tag => <a href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</a>)}</Card.Footer>
+                                    {project.lastVisited && (
+                                    <small>Last visited: {new Date(project.lastVisited).toLocaleDateString()}</small>)} 
                                 </Card.Body>
+                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
                             </Card>
                         </Col>)}
                     </Row>

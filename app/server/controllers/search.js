@@ -3,9 +3,13 @@ const router = express.Router();
 const projects = require('../services/project'); //add code for search inside here... Kinda like getAll
 
 router.get('/search', async (req, res) => {
-  // add code to render the Search Component, and pass all the projects as props
+  /* As seen, it is broken into two different sections. 
+  The first uses data entered directly in the search page or navbar search input
+  The second uses the query parameters to get search results (this is used once tags 
+  links are clicked or when navigating the returned results using pagination) */
+
   if (!req.query.page || req.query === undefined) {
-    // On initial search from the search page or navbar input. Results gotten from router post are displayed.
+    // On initial search from the search page or navbar input. Results gotten from router post are rendered.
     const user = req.session.user;
     const projectResult = req.flash("projectResult");
     const searchProject = projectResult[0];
@@ -23,8 +27,7 @@ router.get('/search', async (req, res) => {
     const searchGroup= req.query.searchType;
     const searchQuery = req.query.searchTerm;
     const page = req.query.page;
-    const limit = 4;
-    //console.log(decodeURIComponent(req.query));
+    const limit = 8;
     const results = await projects.projectSearch(searchGroup, searchQuery, page, limit);
     if (results[0]) {
       const searchProject = results[1];
@@ -46,7 +49,7 @@ router.post('/search', async (req, res) => {
   const searchGroup= req.body.searchType;
   const searchQuery = req.body.searchTerm;
   const page = 1;
-  const limit = 4;
+  const limit = 8;
   const results = await projects.projectSearch(searchGroup, searchQuery, page, limit);
   
   if (results[0]) {

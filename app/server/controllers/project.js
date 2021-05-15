@@ -16,8 +16,8 @@ router.post('/projects/submit', async (req, res) => {
   let projectInfo = {
     name :  req.body.name,
     abstract : req.body.abstract,
-    tags : req.body.tags.split(", "),
-    authors : req.body.authors.split(", "),
+    tags : req.body.tags.split(" "),
+    authors : req.body.authors.split(" "),
     createdBy : req.session.user._id
   }
   
@@ -35,8 +35,9 @@ router.get('/project/:id', async (req, res) => {
   // add code to render the CreateProject Component
   const params = req.params.id;
   const userParams = await project.getById(params);
+  /* On clicking the view Project page, the updateVisit function is called 
+  to update the last visited vield in the project document */
   const result = await project.updateVisit(params);
-  console.log(result)
   res.render('Project', { props1: userParams, props2: await user.getById(userParams.createdBy), user: req.session.user });
 });
 

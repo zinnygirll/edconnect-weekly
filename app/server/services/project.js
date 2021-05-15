@@ -48,16 +48,16 @@ const projectSearch = async (searchGroup, searchQuery, page, limit) => {
   let query;
   switch (searchGroup) {
     case "name":
-      query = {'name': {'$regex': `${searchQuery}`}};
+      query = {'name': {'$regex': `${searchQuery}`, '$options': 'i'}};
       break;
     case "abstract":
-      query = {'abstract': {'$regex': `${searchQuery}`}};
+      query = {'abstract': {'$regex': `${searchQuery}`, '$options': 'i'}};
       break;
     case "authors":
-      query = {'authors': {'$regex': `${searchQuery}`}};
+      query = {'authors': {'$regex': `${searchQuery}`, '$options': 'i'}};
       break;
     case "tags":
-      query = {'tags': {'$regex': `${searchQuery}`}};
+      query = {'tags': {'$regex': `${searchQuery}`, '$options': 'i'}};
       break;
   }
 
@@ -71,7 +71,9 @@ const projectSearch = async (searchGroup, searchQuery, page, limit) => {
   const totalPages = Math.ceil(projectCount / perPage);
 
   if (returnedProject.length > 0) {
-    // Put in array so we can have the projects and total figure
+    /* Return all required documents to the controller/search.js.
+    The exact searchGroup (searchType) and searchQuery(searchTerm) is also sent back.
+    The idea is to send them as props to the view page for the purpose of pagination*/
     return [true, returnedProject, projectCount, searchGroup, searchQuery, totalPages, parseInt(page)]
   } else {
     return [false, "No projects matching your description was found"]

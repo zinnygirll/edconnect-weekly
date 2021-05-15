@@ -20,10 +20,12 @@ const Home = (props) => {
                             <Card>
                                 <Card.Body>
                                     <Card.Title><a href={`/project/${project.id}`}>{project.name}</a></Card.Title>
-                                    <Card.Subtitle>{project.authors}</Card.Subtitle>
+                                    <Card.Subtitle>{project.authors.map(author => <Card.Link style={{color: "black"}}>{author}</Card.Link>)}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    <Card.Footer>{project.tags.map(tag => <a href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</a>)}</Card.Footer>
+                                    {project.lastVisited && (
+                                    <Card.Text><pre>Last visited: {new Date(project.lastVisited).toLocaleDateString()}</pre></Card.Text>)}
                                 </Card.Body>
+                                <Card.Footer>{project.tags.map(tag => <Card.Link href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
                             </Card>
                         </Col>)}
                     </Row>

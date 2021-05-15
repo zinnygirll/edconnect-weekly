@@ -6,7 +6,8 @@
 	"author": "",
 	"scripts": {
 		"dev": "nodemon server/index.js",
-		"start": "node server/index.js"
+		"start": "node server/index.js",
+		"test": "jest"
 	},
 	"license": "ISC",
 	"dependencies": {
@@ -27,8 +28,26 @@
 		"react-dom": "^17.0.2"
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-class-properties": "^7.13.0",
+		"@shelf/jest-mongodb": "^1.2.4",
+		"@testing-library/react": "^11.2.7",
+		"@types/jest": "^26.0.23",
 		"cross-env": "^7.0.2",
+		"faker": "^5.5.3",
 		"jest": "^26.6.3",
+		"mongodb-memory-server": "^6.9.6",
 		"nodemon": "^2.0.4"
+	},
+	"jest": {
+		"testEnvironment": "node"
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-env",
+			"@babel/preset-react"
+		],
+		"plugins": [
+			"@babel/plugin-proposal-class-properties"
+		]
 	}
 }
