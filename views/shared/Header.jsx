@@ -7,7 +7,7 @@ const Header = (props) => {
         <Navbar bg="primary" expand="lg" variant="dark full">
             <Navbar.Brand href="/">Project Explorer</Navbar.Brand>
             <Navbar.Collapse>
-                <Form inline name="searchForm" action="search" method="POST">
+                <Form inline name="searchForm" action="/search" method="POST">
                     <FormLabel className="sr-only">Search Projects:</FormLabel>
                     <FormControl type="text" name="searchTerm" placeholder="Search Projects" />
                     <FormControl type="text" name="searchType" defaultValue="name" style={{display: 'none'}} />

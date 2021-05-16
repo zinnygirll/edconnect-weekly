@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const projects = require('../services/project'); //add code for search inside here... Kinda like getAll
 
-router.get('/search', async (req, res) => {
+router.get('*/search', async (req, res) => {
   /* As seen, it is broken into two different sections. 
   The first uses data entered directly in the search page or navbar search input
   The second uses the query parameters to get search results (this is used once tags 
