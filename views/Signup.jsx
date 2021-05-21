@@ -15,38 +15,38 @@ const Signup = ({ props1, props2, props3, user }) => {
                   </Alert>)}
                 <Form.Group as={Row}>
                     <Col>
-                        <Form.Label for="firstName">First Name:</Form.Label>
+                        <Form.Label htmlFor="firstName">First Name:</Form.Label>
                         <Form.Control type="text" id="firstname" name="firstName" placeholder="First Name" />
                     </Col>
                     <Col>
-                        <Form.Label for="lastName">Last Name:</Form.Label>
+                        <Form.Label htmlFor="lastName">Last Name:</Form.Label>
                         <Form.Control type="text" id ="lastname" name="lastName" placeholder="Last Name" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
                     <Col>
-                        <Form.Label for="email">Email Address:</Form.Label>
+                        <Form.Label htmlFor="email">Email Address:</Form.Label>
                         <Form.Control type="email" id="email" name="email" placeholder="Your Email Address" />
                     </Col>
                     <Col>
-                        <Form.Label for="password">Password:</Form.Label>
+                        <Form.Label htmlFor="password">Password:</Form.Label>
                         <Form.Control type="password" id="password" name="password" placeholder="Your password" />
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row}>
                     <Col>
-                        <Form.Label for="program">Program:</Form.Label>
+                        <Form.Label htmlFor="program">Program:</Form.Label>
                         <Form.Control as="select" name="program" id="program">
                             <option>Select Program</option>
                             {props1.map((program) => <option key={program}>{program}</option>)}
                         </Form.Control>
                     </Col>
                     <Col>
-                        <Form.Label for="matricNumber">Matric Number:</Form.Label>
+                        <Form.Label htmlFor="matricNumber">Matric Number:</Form.Label>
                         <Form.Control type="text" id="matricNumber" name="matricNumber" placeholder="16/2020" />
                     </Col>
                     <Col>
-                        <Form.Label for="graduationYear">Graduation Year:</Form.Label>
+                        <Form.Label htmlFor="graduationYear">Graduation Year:</Form.Label>
                         <Form.Control as="select" name="graduationYear" id="graduationYear">
                             <option>Select Graduation Year</option>
                             {props2.map((gradYear) => <option key={gradYear}>{gradYear}</option>)}
