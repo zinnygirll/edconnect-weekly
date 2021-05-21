@@ -1,20 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Col, Container, Form, InputGroup, Pagination, Row } from 'react-bootstrap';
 import Layout from './shared/Layout';
 
 const Search = (props) => {
+
+    const [searchTerm, setSearchTerm] =  useState(props.searchTerm);
+    const [searchType, setSearchType] =  useState(props.searchType);
+
+    const handleChange = event => {
+        const {name, value} = event.target
+        switch (name) {
+            case 'searchTerm':
+                setSearchTerm(value)
+                break;
+            case 'searchType':
+                setSearchType(value)
+                break;
+        }
+    }
     
     let hrefPrevious = `/search?page=${props.currentPage - 1}&searchType=${props.searchType}&searchTerm=${props.searchTerm}`;
     let hrefNext = `/search?page=${props.currentPage + 1}&searchType=${props.searchType}&searchTerm=${props.searchTerm}`;
+
+    var lastVisitDate = (array) => { 
+        return array.find(data => data.userId === props.user._id); 
+    }
    
     return (
         <Layout user={props.user}><br /><br />
             <Container className="bg-light p-3">
                 <h4>Project Gallery</h4><br />
-                <Form name="searchForm" action="search" method="POST">
+                <Form name="searchForm" action="search" method="GET">
                     <Form.Row>
                         <Form.Group as={Col} lg={7}>
-                            <Form.Control type="text" size="lg" name="searchTerm" placeholder="Project Name, Authors, Abstract, Tags" />
+                            <Form.Control type="text" size="lg" name="searchTerm" placeholder="Project Name, Authors, Abstract, Tags" value={searchTerm} onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col}>
@@ -23,7 +42,7 @@ const Search = (props) => {
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>Search By:</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <Form.Control as="select" size="lg" name="searchType">
+                                <Form.Control as="select" size="lg" name="searchType" value={searchType} onChange={handleChange}>
                                     <option value="name">Name</option>
                                     <option value="abstract">Abstract</option>
                                     <option value="authors">Authors</option>
@@ -61,10 +80,12 @@ const Search = (props) => {
                                     <Card.Title><a href={`/project/${project._id}`}>{project.name}</a></Card.Title>
                                     <Card.Subtitle>{project.authors.map(author => <Card.Link key={author} style={{color: "black"}}>{author}</Card.Link>)}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    {project.lastVisited && (
-                                    <Card.Text>Last visited: {new Date(project.lastVisited).toLocaleDateString()}</Card.Text>)}  
+                                    { props.user && 
+                                        <Card.Text>{(lastVisitDate(project.dateVisited)) && (
+                                        <small>Last visited: {new Date(lastVisitDate(project.dateVisited).dateViewed).toLocaleDateString()}</small>)}</Card.Text>
+                                    }
                                 </Card.Body>
-                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
+                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
                             </Card>
                         </Col>)}
                     </Row>
@@ -77,10 +98,12 @@ const Search = (props) => {
                                     <Card.Title><a href={`/project/${project._id}`}>{project.name}</a></Card.Title>
                                     <Card.Subtitle>{project.authors.map(author => <Card.Link key={author} style={{color: "black"}}>{author}</Card.Link>)}</Card.Subtitle>
                                     <Card.Text>{project.abstract}</Card.Text>
-                                    {project.lastVisited && (
-                                    <small>Last visited: {new Date(project.lastVisited).toLocaleDateString()}</small>)} 
+                                    { props.user && 
+                                        <Card.Text>{(lastVisitDate(project.dateVisited)) && (
+                                        <small>Last visited: {new Date(lastVisitDate(project.dateVisited).dateViewed).toLocaleDateString()}</small>)}</Card.Text>
+                                    }
                                 </Card.Body>
-                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?page=${1}&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
+                                <Card.Footer>{project.tags.map(tag => <Card.Link key={tag} href={`/search?&searchType=tags&searchTerm=${tag}`}>{tag}</Card.Link>)}</Card.Footer>
                             </Card>
                         </Col>)}
                     </Row>

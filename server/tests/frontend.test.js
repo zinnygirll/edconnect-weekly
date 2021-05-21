@@ -34,7 +34,7 @@ describe('Project cards shown on page', () => {
       name: faker.lorem.words(),
       authors: [faker.name.firstName(), faker.name.firstName()],
       abstract: faker.lorem.sentences(),
-      tags: [faker.lorem.word(), faker.lorem.word()],
+      tags: [faker.lorem.word(), faker.lorem.word()]
     };
   });
 

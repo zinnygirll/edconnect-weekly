@@ -2,65 +2,29 @@ const express = require('express');
 const router = express.Router();
 const projects = require('../services/project'); //add code for search inside here... Kinda like getAll
 
+
 router.get('*/search', async (req, res) => {
-  /* As seen, it is broken into two different sections. 
-  The first uses data entered directly in the search page or navbar search input
-  The second uses the query parameters to get search results (this is used once tags 
-  links are clicked or when navigating the returned results using pagination) */
 
-  if (!req.query.page || req.query === undefined) {
-    // On initial search from the search page or navbar input. Results gotten from router post are rendered.
-    const user = req.session.user;
-    const projectResult = req.flash("projectResult");
-    const searchProject = projectResult[0];
-    const count = projectResult[1];
-    const searchType = projectResult[2];
-    const searchTerm = projectResult[3];
-    const totalPages = projectResult[4];
-    const currentPage = projectResult[5];
-    const noProject = req.flash("error")
-    res.render('Search', { user, searchProject, count, noProject, searchType, searchTerm, totalPages, currentPage });
+  /* All requests for search are routed through the GET method. 
+  Whether it comes through pagination or on initial submit */
 
+  const user = req.session.user;
+  const searchGroup = req.query.searchType;
+  const searchQuery = req.query.searchTerm;
+  const page = req.query.page || 1;
+  const limit = 8;
+  const searchResults = await projects.projectSearch(searchGroup, searchQuery, page, limit);
+  if (searchResults) {
+      const { result, searchProject, count, searchType, searchTerm, totalPages, currentPage, noProject } = searchResults;
+      if (result === true) {
+        res.render('Search', { user, searchProject, count, searchType, searchTerm, totalPages, currentPage });
+      } else {
+        res.render('Search', { user, noProject });
+      }
   } else {
-    // On clicking the next/previous pagination arrows, use query values for search.
-    const user = req.session.user;
-    const searchGroup= req.query.searchType;
-    const searchQuery = req.query.searchTerm;
-    const page = req.query.page;
-    const limit = 8;
-    const results = await projects.projectSearch(searchGroup, searchQuery, page, limit);
-    if (results[0]) {
-      const searchProject = results[1];
-      const count = results[2];
-      const searchType = results[3];
-      const searchTerm = results[4];
-      const totalPages = results[5];
-      const currentPage = results[6];
-      res.render('Search', { user, searchProject, count, searchType, searchTerm, totalPages, currentPage });
-    } else {
-      const noProject = results[1];
-      res.render('Search', { user, noProject });
-    }
+      res.render('Search', { user });
   }
 });
 
-// The search with queries
-router.post('/search', async (req, res) => {
-  const searchGroup= req.body.searchType;
-  const searchQuery = req.body.searchTerm;
-  const page = 1;
-  const limit = 8;
-  const results = await projects.projectSearch(searchGroup, searchQuery, page, limit);
-  
-  if (results[0]) {
-    // redirect the search results back to the search page to be viewed
-    req.flash("projectResult", [results[1], results[2], results[3], results[4], results[5], results[6]]);
-    res.redirect('/search');
-  } else {
-    const error = results[1];
-    req.flash("error", error);
-    res.redirect('/search');
-  }
-})
 
 module.exports = router;

@@ -7,7 +7,11 @@ const ProjectSchema = new Schema ({
     authors: { type: [String], required: true },
     tags: { type: [String] },
     createdBy: { type: mongoose.ObjectId, required: true },
-    lastVisited: { type: Date }
+    dateVisited: [{
+        userId: { type: mongoose.ObjectId },
+        dateViewed: { type: Date },
+        _id: false
+    }]
 },
 { timestamps: true}
 );

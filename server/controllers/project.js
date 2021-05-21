@@ -37,7 +37,9 @@ router.get('/project/:id', async (req, res) => {
   const userParams = await project.getById(params);
   /* On clicking the view Project page, the updateVisit function is called 
   to update the last visited vield in the project document */
-  const result = await project.updateVisit(params);
+  if (req.session.user){
+    const result = await project.updateVisit(req.session.user._id, params);
+  }
   res.render('Project', { props1: userParams, props2: await user.getById(userParams.createdBy), user: req.session.user });
 });
 
