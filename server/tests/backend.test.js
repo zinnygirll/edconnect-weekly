@@ -37,7 +37,6 @@ describe('Project cards', () => {
             createdBy: user._id
         });
         const project = await projectService.getById(createProjectId[1]._id);
-        console.log(project)
         expect(project.name).toEqual(projectDoc.name);
         expect(project.abstract).toEqual(projectDoc.abstract);
         expect(project.dateVisited.length).toBe(0);
